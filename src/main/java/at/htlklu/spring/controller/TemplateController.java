@@ -19,8 +19,8 @@ public class TemplateController
 {
 	//region Properties
 	private static Logger logger = LogManager.getLogger(TemplateController.class);
-	private static final String CLASS_NAME = "TeacherController";
-	public static final String FORM_NAME_SINGLE = "TeacherSingle";
-	public static final String FORM_NAME_LIST = "TeacherList";
+	private static final String CLASS_NAME = "TemplateController";
+	public static final String FORM_NAME_SINGLE = "TemplateSingle";
+	public static final String FORM_NAME_LIST = "TemplateList";
 	//endregion
 }

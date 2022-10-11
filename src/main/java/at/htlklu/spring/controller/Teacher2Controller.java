@@ -15,20 +15,21 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping(value ="/mvc/teachers")
-public class TeacherController
+@RequestMapping(value ="/mvc/teachers2")
+public class Teacher2Controller
 {
 	//region Properties
-	private static Logger logger = LogManager.getLogger(TeacherController.class);
-
+	private static Logger logger = LogManager.getLogger(Teacher2Controller.class);
 	private static final String CLASS_NAME = "TeacherController";
 	public static final String FORM_NAME_SINGLE = "TeacherSingle";
 	public static final String FORM_NAME_LIST = "TeacherList";
 
 	@Autowired
 	TeacherRepository teacherRepository;
+	//endregion
 
-	// localhost:8082/mvc/teachers/show
+
+	// localhost:8082/mvc/teachers2/show
 	@GetMapping("/show")
 	public ModelAndView show()
 	{

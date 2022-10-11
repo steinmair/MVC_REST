@@ -1,8 +1,6 @@
 package at.htlklu.spring.restController;
 
-import at.htlklu.spring.api.ErrorsUtils;
 import at.htlklu.spring.api.LogUtils;
-import at.htlklu.spring.controller.TeacherController;
 import at.htlklu.spring.model.Teacher;
 import at.htlklu.spring.repository.TeacherRepository;
 import org.apache.logging.log4j.LogManager;
@@ -12,18 +10,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/teachers")
-public class TeacherRestController
+@RequestMapping("/teachers2")
+public class Teacher2RestController
 {
 	//region Properties
-	private static final Logger logger = LogManager.getLogger(TeacherRestController.class);
+	private static final Logger logger = LogManager.getLogger(Teacher2RestController.class);
 	private static final String CLASS_NAME = "TeacherRestController";
 
 	@Autowired

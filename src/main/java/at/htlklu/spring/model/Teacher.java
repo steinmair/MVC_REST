@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.*;
 public class Teacher extends RepresentationModel<Teacher> implements Serializable
 {
 	//region static Properties
+	private static final Comparator<Teacher> BY_SURNAME = Comparator.comparing(Teacher::getSurname);
+
 	private static final long serialVersionUID = -7790802681322726971L;
 	private static final Logger logger = LogManager.getLogger(Teacher.class);
 	private static final String className = "Teacher";
@@ -66,7 +68,6 @@ public class Teacher extends RepresentationModel<Teacher> implements Serializabl
 	//region Constructors
 	public Teacher()
 	{
-//		logger.info(LogUtils.info(className, "Teacher()"));
 	}
 	
 		
