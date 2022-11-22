@@ -1,0 +1,44 @@
+Bündigkeit (engl: alignment)
+****************************		
+Linksbündig: 
+					
+	Message expression (Labels): <th style="text-align:left" th:text="#{...}"></th>
+	Variable expression: <td style="text-align:left" th:text="${...}"></td>
+
+Zentriert: 'left' durch 'center' ersetzen
+Rechtsbündig: 'left' durch 'right' ersetzen
+
+
+
+Formatierung 
+************
+LocalDateTime: <div th:text="${#temporals.format(variable, 'dd.MM.yyyy HH:mm')}"></div>
+
+Kommazahlen: <td th:text="${#numbers.formatDecimal(variable, 1, 2)}"></td>	
+
+
+
+Dynamisches Ausblenden 
+**********************
+Message expression: <td th:if="${teacher == null}" th:text="${schoolClass.teacher}"></td>
+
+Variable expression: <td th:if="${condition}" th:text="#{...}"></td> 
+			
+
+
+Farblich hinterlegen 
+********************
+Text: <td th:classappend="${studentSubject.grade == 5} ? 'text-danger' : 'text-success'" th:text="variable"></td>
+
+Hintergrund und Text: <td th:classappend="${studentSubject.grade == 5} ? 'bg-danger text-white': 'bg-success text-white'" th:text="variable"></td>
+
+
+
+Fragments
+*********
+Defintion (in View.html)
+	<div th:fragment="methodName(parameter)" th:remove="tag">
+		// to do
+	</div>
+
+Aufruf: <div th:replace="fragments/View.html :: methodName(parameter=${parameter})"></div>

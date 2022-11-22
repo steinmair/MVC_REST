@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:lang="${#locale.language}">
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title th:text="#{teacher.caption.plural}"/>
         <meta charset="UTF-8">
@@ -15,10 +15,12 @@
 	            <tr>
 	                <th th:text="#{teacher.teacherId}"></th>
 	            	<th th:text="#{teacher.surname}"></th>
+					<th th:text="#{teacher.firstname}"></th>
 	            </tr>
 	            <tr th:each="teacher:${teachers}">
 		            <td th:text="${teacher.teacherId}"></td>
 		            <td th:text="${teacher.surname}"></td>
+					<td th:text="${teacher.firstname}"></td>
 	            </tr>
 	        </table>
 		</div>

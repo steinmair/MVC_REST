@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/teachers2")
+@RequestMapping("teachers2")
 public class Teacher2RestController
 {
 	//region Properties
@@ -42,7 +42,7 @@ public class Teacher2RestController
 
 
 	// http://localhost:8082/teachers/getRandomA
-	@GetMapping(value = "/getRandomA")
+	@GetMapping(value = "getRandomA")
 	public Teacher getRandomA()
 	{
 		logger.info(LogUtils.info(CLASS_NAME, "getRandomA"));
@@ -54,7 +54,7 @@ public class Teacher2RestController
 
 
 	// http://localhost:8082/teachers/getRandomB
-	@GetMapping(value = "/getRandomB")
+	@GetMapping(value = "getRandomB")
 	public ResponseEntity<?> getRandomB()
 	{
 		logger.info(LogUtils.info(CLASS_NAME, "getRandomB"));
@@ -66,7 +66,7 @@ public class Teacher2RestController
 	}
 
 	// http://localhost:8082/teachers/getRandomC
-	@GetMapping(value = "/getRandomC")
+	@GetMapping(value = "getRandomC")
 	public ResponseEntity<?> getRandomC()
 	{
 		logger.info(LogUtils.info(CLASS_NAME, "getRandomC"));
@@ -81,7 +81,7 @@ public class Teacher2RestController
 
 	
 	// http://localhost:8082/teachers/1
-	@GetMapping(value = "/{teacherId}")
+	@GetMapping(value = "{teacherId}")
 	public ResponseEntity<?> getByIdPV(@PathVariable Integer teacherId)
 	{
 		logger.info(LogUtils.info(CLASS_NAME, "getByIdPV", String.format("(%d)", teacherId)));
@@ -103,7 +103,7 @@ public class Teacher2RestController
 	}
 
 	// http://localhost:8082/teachers/get?teacherId=86
-	@GetMapping(value = "/get")
+	@GetMapping(value = "get")
 	public ResponseEntity<?> getByIdRP(@RequestParam Integer teacherId)
 	{
 		logger.info(LogUtils.info(CLASS_NAME, "getByIdRP", String.format("(%d)", teacherId)));
@@ -123,6 +123,8 @@ public class Teacher2RestController
 
 		return result;
 	}
+
+	//endregion
 
 
 	@PostMapping(value = "")
