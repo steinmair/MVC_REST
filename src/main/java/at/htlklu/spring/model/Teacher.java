@@ -116,28 +116,6 @@ public class Teacher extends RepresentationModel<Teacher> implements Serializabl
 	{
 		return String.format("%s %s %s", this.title, this.firstname, this.surname);
 	}
-
-	public boolean isMale()
-	{
-		return Character.toLowerCase(this.sex) == 'm';
-	}
-	public boolean isFemale()
-	{
-		return Character.toLowerCase(this.sex) == 'f';
-	}
-
-	// Sehr geehrter Herr DI. Xyz
-	public String getSalutation()
-	{
-		return null;
-	}
-
-	// isHead (Regel: departments.size > 0)
-	public boolean isHead()
-	{
-		return this.departments.size() > 0;
-	}
-
 	//endregion
 
 
