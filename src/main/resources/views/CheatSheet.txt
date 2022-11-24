@@ -1,9 +1,9 @@
 Links
 *****
 
-<a th:href="@{/mvc/teachers/{teacherId}/schoolClasses(teacherId=${teacher.teacherId})}"
+<a th:href="@{/mvc/teachers/show/{teacherId}/schoolClasses(teacherId=${teacher.teacherId})}"
 	th:text="#{message}">
-</a>s
+</a>
 
 
 Bündigkeit (engl: alignment)
@@ -46,7 +46,9 @@ Fragments
 *********
 Defintion (in View.html)
 	<div th:fragment="methodName(parameter)" th:remove="tag">
-		// to do
+	    <div th:if="${parameter}">
+		    // to do (siehe Table in TeacherList.html)
+		</div>
 	</div>
 
 Aufruf: <div th:replace="fragments/View.html :: methodName(parameter=${parameter})"></div>
