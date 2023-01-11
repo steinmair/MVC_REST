@@ -1,15 +1,15 @@
 Links
 *****
 
-<a th:href="@{/mvc/teachers/show/{teacherId}/schoolClasses(teacherId=${teacher.teacherId})}"
+<a th:href="@{/mvc/teachers/{teacherId}/schoolClasses(teacherId=${teacher.teacherId})}"
 	th:text="#{message}">
 </a>
 
 
 Bündigkeit (engl: alignment)
-****************************		
-Linksbündig: 
-					
+****************************
+Linksbündig:
+
 	Message expression (Labels): <th style="text-align:left" th:text="#{...}"></th>
 	Variable expression: <td style="text-align:left" th:text="${...}"></td>
 
@@ -18,23 +18,23 @@ Rechtsbündig: 'left' durch 'right' ersetzen
 
 
 
-Formatierung 
+Formatierung
 ************
 LocalDateTime: <div th:text="${#temporals.format(variable, 'dd.MM.yyyy HH:mm')}"></div>
 
-Kommazahlen: <td th:text="${#numbers.formatDecimal(variable, 1, 2)}"></td>	
+Kommazahlen: <td th:text="${#numbers.formatDecimal(variable, 1, 2)}"></td>
 
 
 
-Dynamisches Ausblenden 
+Dynamisches Ausblenden
 **********************
 Message expression: <td th:if="${teacher == null}" th:text="${schoolClass.teacher}"></td>
 
-Variable expression: <td th:if="${condition}" th:text="#{...}"></td> 
-			
+Variable expression: <td th:if="${condition}" th:text="#{...}"></td>
 
 
-Farblich hinterlegen 
+
+Farblich hinterlegen
 ********************
 Text: <td th:classappend="${studentSubject.grade == 5} ? 'text-danger' : 'text-success'" th:text="variable"></td>
 
@@ -46,9 +46,25 @@ Fragments
 *********
 Defintion (in View.html)
 	<div th:fragment="methodName(parameter)" th:remove="tag">
-	    <div th:if="${parameter}">
-		    // to do (siehe Table in TeacherList.html)
-		</div>
+		// to do
 	</div>
 
 Aufruf: <div th:replace="fragments/View.html :: methodName(parameter=${parameter})"></div>
+
+
+
+Combobox
+********
+<select class="form-control" th:field="*{teacher}">
+	<option th:each="t:${teachers}"
+			th:value="${t.teacherId}"
+			th:text="${t}">
+	</option>
+</select>
+
+
+
+addEdit - Mapping
+*****************
+@GetMapping({"addEdit", "addEdit/{optDepartmentId}"})
+
