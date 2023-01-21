@@ -9,7 +9,6 @@
     </head>
     <body>
     	<div class="container">
-
 			<form action="#"  th:action="@{/mvc/teachers/save}"
 		                      th:object="${teacher}" method="POST" enctype="application/x-www-form-urlencoded"
 		                      class="row needs-validation" novalidate>
@@ -20,9 +19,11 @@
 						<td></td>
 		    		</tr>
 		    		<tr>
-		    			<td th:text="#{teacher.title}"></td> 
-		    			<td><input type="text" th:field="*{title}" size=30 class="form-control"></td>
-						<td></td>
+		    			<td th:text="#{teacher.surname}"></td>
+		    			<td><input type="text" th:field="*{surname}" size=50 placeholder="" class="form-control" required
+											   th:classappend="${#fields.hasErrors('surname')} ? 'is-invalid' : 'is-valid'"></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('surname')}" th:errors="*{surname}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('surname')}" th:text="#{page.inputOk}"></td>
 		    		</tr>
 				</table>
 		    </form>	 

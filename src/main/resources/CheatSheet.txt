@@ -1,9 +1,10 @@
 Links
 *****
-
+String.format("TeacherId = %d", teacherId)
 <a th:href="@{/mvc/teachers/{teacherId}/schoolClasses(teacherId=${teacher.teacherId})}"
 	th:text="#{message}">
 </a>
+
 
 
 Bündigkeit (engl: alignment)
@@ -31,6 +32,17 @@ Dynamisches Ausblenden
 Message expression: <td th:if="${teacher == null}" th:text="${schoolClass.teacher}"></td>
 
 Variable expression: <td th:if="${condition}" th:text="#{...}"></td>
+
+
+
+Optimierung
+***********
+@EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
+             attributePaths = {"teacher",
+                               "students",
+                               "students.studentSubjects",
+                               "students.studentSubjects.subject"})
+Optional<SchoolClass> findBySchoolClassId(int schoolClassId);
 
 
 
@@ -67,4 +79,12 @@ Combobox
 addEdit - Mapping
 *****************
 @GetMapping({"addEdit", "addEdit/{optDepartmentId}"})
+public ModelAndView addEdit(@PathVariable Optional<Integer> optTeacherId)
 
+
+
+save - Mapping
+*****************
+@PostMapping(value = "save")
+public ModelAndView save(@Valid @ModelAttribute Student student,
+                            BindingResult bindingResult)
