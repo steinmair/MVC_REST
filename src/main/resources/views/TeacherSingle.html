@@ -25,6 +25,13 @@
 		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('surname')}" th:errors="*{surname}"></td>
 						<td class="alert alert-success" th:unless="${#fields.hasErrors('surname')}" th:text="#{page.inputOk}"></td>
 		    		</tr>
+					<tr>
+		    			<td></td>
+						<td>
+		    				<input type="submit" class="btn btn-primary" th:value="#{button.save}"/>
+		    			</td>
+						<td></td>
+		    		</tr>
 				</table>
 		    </form>	 
 		</div>     
