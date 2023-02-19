@@ -74,6 +74,14 @@ Combobox
 	</option>
 </select>
 
+<select class="form-control" name="teacher" id="teacher" required>
+    <option th:each="t: ${teachers}"
+            th:selected="${t.teacherId} == *{teacher.teacherId}"
+            th:value="${t.teacherId}"
+            th:text="${t}">
+    </option>
+</select>
+
 
 
 addEdit - Mapping
