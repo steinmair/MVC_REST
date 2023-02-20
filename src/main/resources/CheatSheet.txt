@@ -74,9 +74,12 @@ Combobox
 	</option>
 </select>
 
+### https://stackoverflow.com/questions/49911057/thymeleaf-select-option-performance-issue
+********
 <select class="form-control" name="teacher" id="teacher" required>
+    <option value="-1" th:text="#{option.choose}"></option>
     <option th:each="t: ${teachers}"
-            th:selected="${t.teacherId} == *{teacher.teacherId}"
+            th:selected="${t.teacherId} == (*{teacher} != null ? *{teacher.teacherId} : -1)"
             th:value="${t.teacherId}"
             th:text="${t}">
     </option>
