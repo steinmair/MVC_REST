@@ -1,10 +1,14 @@
 Links
 *****
 String.format("TeacherId = %d", teacherId)
+
 <a th:href="@{/mvc/teachers/{teacherId}/schoolClasses(teacherId=${teacher.teacherId})}"
 	th:text="#{message}">
 </a>
 
+<a th:href="@{/mvc/teachers/show/{teacherId}/schoolClasses(teacherId=${teacher.teacherId})}"
+	th:text="#{message}">
+</a>
 
 
 Bündigkeit (engl: alignment)
