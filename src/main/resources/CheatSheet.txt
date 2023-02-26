@@ -78,6 +78,9 @@ Combobox
 	</option>
 </select>
 
+
+********
+bei Performanceproblemeen (zu Hause)
 ### https://stackoverflow.com/questions/49911057/thymeleaf-select-option-performance-issue
 ********
 <select class="form-control" name="teacher" id="teacher" required>
