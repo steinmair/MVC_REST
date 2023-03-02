@@ -106,3 +106,9 @@ save - Mapping
 @PostMapping(value = "save")
 public ModelAndView save(@Valid @ModelAttribute Student student,
                             BindingResult bindingResult)
+
+
+
+Ausgabe allgemeine Fehlermeldung
+********************************
+<p class="alert alert-danger" th:if="${error!=null}" th:text="${error}"></p>
