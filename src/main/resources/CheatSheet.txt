@@ -91,6 +91,7 @@ bei Performanceproblemeen (zu Hause)
             th:text="${t}">
     </option>
 </select>
+<td class="alert alert-danger" th:if="${#fields.hasErrors('teacher')}" th:errors="*{teacher}"></td>
 
 
 
