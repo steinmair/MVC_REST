@@ -10,6 +10,12 @@ String.format("TeacherId = %d", teacherId)
 	th:text="#{message}">
 </a>
 
+*** Link als Button ***
+<a class="btn btn-primary btn-sm"
+    th:href="@{/mvc/teachers/show/{teacherId}/schoolClasses(teacherId=${teacher.teacherId})}"
+	th:text="#{message}">
+</a>
+
 
 Bündigkeit (engl: alignment)
 ****************************
