@@ -9,6 +9,9 @@
     </head>
     <body>
     	<div class="container">
+			<h2 th:text="#{teacher.caption.singular}"></h2>
+			<h2 th:text="${teacher.teacherId} ? #{entity.update} : #{entity.insert}"></h2>
+
 			<form action="#"  th:action="@{/mvc/teachers/save}"
 		                      th:object="${teacher}" method="POST" enctype="application/x-www-form-urlencoded"
 		                      class="row needs-validation" novalidate>
