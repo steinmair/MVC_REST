@@ -32,9 +32,9 @@ public class Absence extends RepresentationModel<Absence> implements Serializabl
     @JoinColumn(name = "STUDENT_ID")
 	private Student student;
 
-	@Column(name = "TIME_FROM")
+	@Column(name = "TIME_FROM", columnDefinition = "TIMESTAMP")
 	private LocalDateTime timeFrom;
-	@Column(name = "TIME_TO")
+	@Column(name = "TIME_TO", columnDefinition = "TIMESTAMP")
 	private LocalDateTime timeTo;
 	private int period;
 	private String reason;
@@ -99,7 +99,7 @@ public class Absence extends RepresentationModel<Absence> implements Serializabl
 	{
 		return timeTo;
 	}
-	public void setTimeto(LocalDateTime timeTo)
+	public void setTimeTo(LocalDateTime timeTo)
 	{
 		this.timeTo = timeTo;
 	}
