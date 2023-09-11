@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping(value ="/mvc/teachers2")
+@RequestMapping(value ="mvc/teachers2")
 public class Teacher2Controller
 {
 	//region Properties
@@ -30,7 +30,7 @@ public class Teacher2Controller
 
 
 	// localhost:8082/mvc/teachers2/show
-	@GetMapping("/show")
+	@GetMapping("show")
 	public ModelAndView show()
 	{
 		logger.info(LogUtils.info(CLASS_NAME, "show"));
