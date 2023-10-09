@@ -37,10 +37,10 @@ public class Teacher2Controller
 
 		ModelAndView mv = new ModelAndView();
 
-		mv.setViewName(FORM_NAME_LIST);
+		mv.setViewName(FORM_NAME_LIST);									// Übergabe der View
 
-		List<Teacher> teachers = teacherRepository.findAll();
-		mv.addObject("teachers", teachers);
+		List<Teacher> teachers = teacherRepository.findAll();			// Sortierung fehlt
+		mv.addObject("teachers", teachers);					// Übergabe des Models
 
 	    return mv;
 	}

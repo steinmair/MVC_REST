@@ -31,10 +31,6 @@ public class Event extends RepresentationModel<SchoolClass> implements Serializa
 	@Column(name = "EVENT_ID")
     private Integer eventId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "SCHOOLCLASS_ID")
-	private SchoolClass schoolClass;
-
     @Column(name = "DATE_FROM")
 	@DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate dateFrom;
@@ -43,6 +39,10 @@ public class Event extends RepresentationModel<SchoolClass> implements Serializa
     private LocalDate dateTo;
     private String destination;
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "SCHOOLCLASS_ID")
+	private SchoolClass schoolClass;
     //endregion
 
 

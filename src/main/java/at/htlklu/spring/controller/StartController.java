@@ -32,7 +32,7 @@ public class StartController
     public int addPV(@PathVariable int number1,
                      @PathVariable int number2)
     {
-        logger.info(LogUtils.info(CLASS_NAME, String.format("addPV/%d/%d", number1, number2)));
+        logger.info(LogUtils.info(CLASS_NAME, "addPV", String.format("%d,%d", number1, number2)));
         return number1 + number2;
     }
 
@@ -42,7 +42,7 @@ public class StartController
     public int addRP(@RequestParam int number1,
                      @RequestParam int number2)
     {
-        logger.info(LogUtils.info(CLASS_NAME, String.format("addRP/%d/%d", number1, number2)));
+        logger.info(LogUtils.info(CLASS_NAME, "addRP", String.format("%d,%d", number1, number2)));
         return number1 + number2;
     }
 

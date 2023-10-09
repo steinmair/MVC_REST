@@ -53,6 +53,13 @@ public class SchoolClass extends RepresentationModel<SchoolClass> implements Ser
 			   orphanRemoval = true, 
 			   fetch = FetchType.LAZY)
 	private Set<Student> students = new HashSet<Student>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "schoolClass", 							// JPA (mappedBy gibt das Feld in der Klasse "Student" an)
+			   cascade = CascadeType.ALL,
+			   orphanRemoval = true,
+			   fetch = FetchType.LAZY)
+	private Set<Event> events = new HashSet<Event>();
 	//endregion
 
 
@@ -141,6 +148,11 @@ public class SchoolClass extends RepresentationModel<SchoolClass> implements Ser
 	public Set<Student> getStudents()
 	{
 		return students;
+	}
+
+	public Set<Event> getEvents()
+	{
+		return events;
 	}
 	//endregion
 
