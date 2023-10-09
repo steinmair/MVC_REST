@@ -18,6 +18,7 @@ public class StartController
     private static final String CLASS_NAME = "StartController";
 
 
+    // http://localhost:8082/start/test
     @GetMapping("test")
 	@ResponseBody
 	public String test()
@@ -25,6 +26,7 @@ public class StartController
 		logger.info(LogUtils.info(CLASS_NAME, "show"));
 	    return "test";
 	}
+    // http://localhost:8082/departments/1/schoolClasses
 
 //    localhost:8082/start/add/3/5  // Url ca. = Path
     @GetMapping("add/{number1}/{number2}")
@@ -56,5 +58,17 @@ public class StartController
 									"Mag.", "???", "0...");
 		return teacher;
 	}
+
+    @GetMapping("loop/{number1}")
+    @ResponseBody
+    public int calcLoop(  @PathVariable int number1)
+    {
+        int result = 0;
+        for (int i = 0; i < 5; i++) {
+            result = result + number1;
+        }
+        logger.info(LogUtils.info(CLASS_NAME, "calcLoop", String.format("%d,%d", number1, result)));
+        return result;
+    }
 
 }
