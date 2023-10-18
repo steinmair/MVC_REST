@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{event.caption.plural}"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+ 		<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    </head>
+    <body>    
+    	<div class="container">
+	    	<h2 th:text="#{event.caption.plural}"></h2>
+
+	        <table class="table table-striped table-responsive-md">
+	            <tr>
+	                <th th:text="#{event.eventId}"></th>
+	                <th th:text="#{event.dateFrom}"></th>
+	                <th th:text="#{event.dateTo}"></th>
+	                <th th:text="#{event.destination}"></th>
+	                <th th:text="#{event.description}"></th>
+	            </tr>
+	            <tr th:each="event:${events}">
+		            <td th:text="${event.eventId}"></td>
+		            <td th:text="${event.dateFrom}"></td>
+		            <td th:text="${event.dateTo}"></td>
+		            <td th:text="${event.destination}"></td>
+		            <td th:text="${event.description}"></td>
+	            </tr>
+	        </table>
+		</div>
+    </body>
+</html>

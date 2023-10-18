@@ -75,6 +75,12 @@ public class Department extends RepresentationModel<Department> implements Seria
 	{
 		return String.format("%s", this.name);
 	}
+
+	public double averageStudentsCountByClass(){
+		return this.schoolClasses.stream()
+				.mapToInt(schoolclass -> schoolclass.getStudents().size())
+				.average().orElse(-1);
+	}
 	//endregion
 
 

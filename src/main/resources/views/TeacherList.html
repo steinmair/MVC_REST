@@ -20,6 +20,8 @@
 					<th th:text="#{teacher.shortName}"></th>
 					<th th:text="#{teacher.phone}"></th>
 					<th th:text="#{teacher.email}"></th>
+
+					<th th:text="#{page.actions}"></th>
 	            </tr>
 	            <tr th:each="teacher:${teachers}">
 		            <td th:text="${teacher.teacherId}"></td>
@@ -29,6 +31,14 @@
 					<td th:text="${teacher.shortName}"></td>
 					<td th:text="${teacher.phone}"></td>
 					<td th:text="${teacher.email}"></td>
+					<td>
+						<a th:href="@{/mvc/teachers/{teacherId}/departments(teacherId=${teacher.teacherId})}"
+							th:text="#{page.show(#{department.caption.plural})}">
+						</a>
+						<a th:href="@{/mvc/teachers/{teacherId}/schoolClasses(teacherId=${teacher.teacherId})}"
+							th:text="#{page.show(#{schoolClass.caption.plural})}">
+						</a>
+					</td>
 	            </tr>
 	        </table>
 		</div>

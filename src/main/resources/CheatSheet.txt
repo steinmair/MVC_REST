@@ -31,7 +31,7 @@ Rechtsbündig: 'left' durch 'right' ersetzen
 
 Formatierung
 ************
-LocalDateTime: <div th:text="${#temporals.format(variable, 'dd.MM.yyyy HH:mm')}"></div>
+LocalDateTime: <td th:text="${#temporals.format(variable, 'dd.MM.yyyy HH:mm')}"></td>
 
 Kommazahlen: <td th:text="${#numbers.formatDecimal(variable, 1, 2)}"></td>
 

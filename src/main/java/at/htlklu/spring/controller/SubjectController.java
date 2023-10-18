@@ -1,6 +1,8 @@
 package at.htlklu.spring.controller;
 
 import at.htlklu.spring.api.LogUtils;
+import at.htlklu.spring.model.Department;
+import at.htlklu.spring.model.StudentSubject;
 import at.htlklu.spring.model.Subject;
 import at.htlklu.spring.model.Teacher;
 import at.htlklu.spring.repository.SubjectRepository;
@@ -10,10 +12,13 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 // localhost:8082/mvc/subjects
 @Controller
@@ -30,7 +35,7 @@ public class SubjectController
 	SubjectRepository subjectRepository;
 	//endregion
 
-	// localhost:8082/mvc/teachers
+	// localhost:8082/mvc/subjects
 	@GetMapping("")
 	public ModelAndView show()
 	{
@@ -45,4 +50,5 @@ public class SubjectController
 
 	    return mv;
 	}
+
 }

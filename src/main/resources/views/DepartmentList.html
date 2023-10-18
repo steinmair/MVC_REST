@@ -17,12 +17,23 @@
 	                <th th:text="#{department.name}"></th>
 	                <th th:text="#{department.nameShort}"></th>
 	                <th th:text="#{department.teacher}"></th>
+	                <th style="text-align: right" th:text="#{department.averageCountStudentsBySchoolclass}"></th>
+					<th th:text="#{page.actions}"></th>
 	            </tr>
 	            <tr th:each="department:${departments}">
 		            <td th:text="${department.departmentId}"></td>
 		            <td th:text="${department.name}"></td>
 		            <td th:text="${department.nameShort}"></td>
 		            <td th:text="${department.teacher}"></td>
+		         <!--   <td style="text-align: right" th:text="${#numbers.formatDecimal(department.averageStudentsCountByClass(),1,2)}"></td> -->
+					<td style="text-align: right" th:classappend="${department.averageStudentsCountByClass() < 30} ? 'bg-danger text-white': 'bg-success text-white'"
+						th:text="${#numbers.formatDecimal(department.averageStudentsCountByClass(),1,2)}"></td>
+				<!--	<td th:classappend="${studentSubject.grade == 5} ? 'bg-danger text-white': 'bg-success text-white'" th:text="variable"></td> -->
+					<td>
+						<a th:href="@{/mvc/departments/{departmentId}/schoolClasses(departmentId=${department.departmentId})}"
+							th:text="#{page.show(#{schoolClass.caption.plural})}">
+						</a>
+					</td>
 	            </tr>
 	        </table>
 		</div>
