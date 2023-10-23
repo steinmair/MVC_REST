@@ -1,10 +1,7 @@
 package at.htlklu.spring.controller;
 
 import at.htlklu.spring.api.LogUtils;
-import at.htlklu.spring.model.Department;
-import at.htlklu.spring.model.SchoolClass;
-import at.htlklu.spring.model.Student;
-import at.htlklu.spring.model.Teacher;
+import at.htlklu.spring.model.*;
 import at.htlklu.spring.repository.StudentRepository;
 import at.htlklu.spring.repository.TeacherRepository;
 import org.apache.logging.log4j.LogManager;
@@ -50,5 +47,65 @@ public class StudentController
 		mv.addObject("students", students);					// Übergabe des Models, Der attribute Name wird der for each loop im TeacherList.html (table) übergeben
 
 	    return mv;
+	}
+
+		// localhost:8082/mvc/teachers/105/studentSubjects
+	@GetMapping("{studentId}/studentSubjects")
+	public ModelAndView showStudentSubjects(@PathVariable int studentId)
+	{
+		logger.info(LogUtils.info(CLASS_NAME,
+				"showStudentSubjects", String.format("%d", studentId)));
+
+		ModelAndView mv = new ModelAndView();
+
+		mv.setViewName(StudentSubjectController.FORM_NAME_LIST);
+		Optional<Student> optStudent = studentRepository.findById(studentId);
+
+		if (optStudent.isPresent()) // Student wurde gefunden, weil Id in Tabelle vorhanden
+		{
+			Student student = optStudent.get();
+
+			List<StudentSubject> studentSubjects = student.getStudentSubjects()
+					.stream()
+					.collect(Collectors.toList());
+
+			mv.addObject("student", student);
+			mv.addObject("studentSubjects", studentSubjects);
+		}
+		else
+		{
+			// Fehlerhandling
+		}
+		return mv;
+	}
+
+			// localhost:8082/mvc/teachers/105/departments
+	@GetMapping("{studentId}/absences")
+	public ModelAndView showAbsences(@PathVariable int studentId)
+	{
+		logger.info(LogUtils.info(CLASS_NAME,
+				"showAbsences", String.format("%d", studentId)));
+
+		ModelAndView mv = new ModelAndView();
+
+		mv.setViewName(StudentSubjectController.FORM_NAME_LIST);
+		Optional<Student> optStudent = studentRepository.findById(studentId);
+
+		if (optStudent.isPresent()) // Student wurde gefunden, weil Id in Tabelle vorhanden
+		{
+			Student student = optStudent.get();
+
+			List<Absence> absences = student.getAbsences()
+					.stream()
+					.collect(Collectors.toList());
+
+			mv.addObject("student", student);
+			mv.addObject("absences", absences);
+		}
+		else
+		{
+			// Fehlerhandling
+		}
+		return mv;
 	}
 }

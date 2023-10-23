@@ -30,7 +30,8 @@
 						th:text="${#numbers.formatDecimal(department.averageStudentsCountByClass(),1,2)}"></td>
 				<!--	<td th:classappend="${studentSubject.grade == 5} ? 'bg-danger text-white': 'bg-success text-white'" th:text="variable"></td> -->
 					<td>
-						<a th:href="@{/mvc/departments/{departmentId}/schoolClasses(departmentId=${department.departmentId})}"
+						<a class="btn btn-primary btn-sm"
+						   th:href="@{/mvc/departments/{departmentId}/schoolClasses(departmentId=${department.departmentId})}"
 							th:text="#{page.show(#{schoolClass.caption.plural})}">
 						</a>
 					</td>

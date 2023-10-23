@@ -9,8 +9,8 @@
     </head>
     <body>    
     	<div class="container">
+			<div th:replace="fragments/Schoolclass.html :: show(schoolClass=${schoolClass})"></div>
 	    	<h2 th:text="#{event.caption.plural}"></h2>
-
 	        <table class="table table-striped table-responsive-md">
 	            <tr>
 	                <th th:text="#{event.eventId}"></th>
