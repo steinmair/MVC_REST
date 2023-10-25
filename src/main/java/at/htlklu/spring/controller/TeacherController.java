@@ -7,11 +7,16 @@ import at.htlklu.spring.api.LogUtils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.naming.Binding;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -34,6 +39,7 @@ public class TeacherController
 	TeacherRepository teacherRepository;
 	//endregion
 
+	//region Show
 	// localhost:8082/mvc/teachers
 	@GetMapping("")
 	public ModelAndView show()
@@ -110,5 +116,104 @@ public class TeacherController
 		}
 
 		return mv;
+	}
+	//endregion
+
+	//region Add und Edit Variante 1
+	// localhost:8082/mvc/teachers/add
+@GetMapping("add")
+	public ModelAndView add()
+	{
+		logger.info(LogUtils.info(CLASS_NAME, "add"));
+
+		ModelAndView mv = new ModelAndView();
+
+		mv.setViewName(TeacherController.FORM_NAME_SINGLE); 			// hier wird der Fomularname eingegeben
+
+		Teacher teacher = new Teacher();
+
+		mv.addObject("teacher",teacher);
+
+	    return mv;
+	}
+
+// localhost:8082/mvc/teachers/edit/79
+@GetMapping("edit/{teacherId}")
+	public ModelAndView edit(@PathVariable int teacherId)
+	{
+		logger.info(LogUtils.info(CLASS_NAME, "edit", String.format("%d", teacherId)));
+
+		ModelAndView mv = new ModelAndView();
+
+		mv.setViewName(TeacherController.FORM_NAME_SINGLE); 			// hier wird der Fomularname eingegeben
+
+		Optional<Teacher> optTeacher = teacherRepository.findById(teacherId);
+
+		if (optTeacher.isPresent()){
+			Teacher teacher = optTeacher.get();
+			mv.addObject("teacher",teacher);
+		}else {
+			// to do: error handling
+		}
+
+		Teacher teacher = new Teacher();
+
+
+
+	    return mv;
+	}
+	//endregion
+
+	//region Add und Edit Variante 2
+
+	// localhost:8082/mvc/teachers/addEdit
+	// localhost:8082/mvc/teachers/addEdit/79
+@GetMapping({"addEdit","addEdit/{optTeacherId}"})
+	public ModelAndView addEdit(@PathVariable Optional<Integer> optTeacherId)
+	{
+		logger.info(LogUtils.info(CLASS_NAME, "addEdit", String.format("%s", optTeacherId)));
+
+		ModelAndView mv = new ModelAndView();
+
+		mv.setViewName(TeacherController.FORM_NAME_SINGLE); 			// hier wird der Fomularname eingegeben
+
+		int teacherId = optTeacherId.orElse(-1);	// wenn in der URL die teacherId übergeben wurde, dann wird diese in der Variable teacherId gespeichert
+														// wenn in der URL keine teacherId übergeben wurde, dann wird "-1" in der teacherId gespeichert
+
+		Teacher teacher = teacherRepository.findById(teacherId).orElse(new Teacher());
+
+		mv.addObject("teacher",teacher);
+
+	    return mv;
+	}
+	//endregion
+
+	// localhost:8082/mvc/teachers/save
+	// @Valid bedeutet, dass die Attribute vom Techer gegen die Regeln in der Klasse Teacher validiert werden
+	// Beispiel für das Atrribut Surname
+	// @NotBlank: der Surname darf nicht leer sein oder aus nur Leerzeichen bestehen
+	//@Length(min = 3, max = 25)= die Länge des Surnames muss zwischen 3 un d25 zeichen lang sein
+	//private String surname;
+@PostMapping("save")
+	public ModelAndView save(@Valid  @ModelAttribute Teacher teacher,
+							 BindingResult bindingResult)
+	{
+		logger.info(LogUtils.info(TeacherController.class.getSimpleName(), "save", String.format("%s", teacher)));
+
+		boolean error = false;
+
+		if (!error){
+			error= bindingResult.hasErrors();
+		}
+		if (!error){
+			teacherRepository.save(teacher);
+		}
+
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName(TeacherController.FORM_NAME_SINGLE); 			// hier wird der Fomularname eingegeben
+
+		mv.addObject("teacher",teacher);
+
+	    return mv;
 	}
 }

@@ -22,11 +22,54 @@
 						<td></td>
 		    		</tr>
 		    		<tr>
+		    			<td th:text="#{teacher.title}"></td>
+		    			<td><input type="text" th:field="*{title}" size=50 placeholder="" class="form-control" required
+											   th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : 'is-valid'"></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('title')}" th:errors="*{title}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('title')}" th:text="#{page.inputOk}"></td>
+		    		</tr>
+
+					<tr>
 		    			<td th:text="#{teacher.surname}"></td>
 		    			<td><input type="text" th:field="*{surname}" size=50 placeholder="" class="form-control" required
 											   th:classappend="${#fields.hasErrors('surname')} ? 'is-invalid' : 'is-valid'"></td>
 		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('surname')}" th:errors="*{surname}"></td>
 						<td class="alert alert-success" th:unless="${#fields.hasErrors('surname')}" th:text="#{page.inputOk}"></td>
+		    		</tr>
+					<tr>
+		    			<td th:text="#{teacher.firstname}"></td>
+		    			<td><input type="text" th:field="*{firstname}" size=50 placeholder="" class="form-control" required
+											   th:classappend="${#fields.hasErrors('firstname')} ? 'is-invalid' : 'is-valid'"></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('firstname')}" th:text="#{page.inputOk}"></td>
+		    		</tr>
+					<tr>
+		    			<td th:text="#{teacher.sex}"></td>
+		    			<td><input type="text" th:field="*{sex}" size=50 placeholder="" class="form-control" required
+											   th:classappend="${#fields.hasErrors('sex')} ? 'is-invalid' : 'is-valid'"></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('sex')}" th:errors="*{sex}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('sex')}" th:text="#{page.inputOk}"></td>
+		    		</tr>
+					<tr>
+		    			<td th:text="#{teacher.shortName}"></td>
+		    			<td><input type="text" th:field="*{shortName}" size=50 placeholder="" class="form-control" required
+											   th:classappend="${#fields.hasErrors('shortName')} ? 'is-invalid' : 'is-valid'"></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('shortName')}" th:errors="*{shortName}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('shortName')}" th:text="#{page.inputOk}"></td>
+		    		</tr>
+					<tr>
+		    			<td th:text="#{teacher.phone}"></td>
+		    			<td><input type="text" th:field="*{phone}" size=50 placeholder="" class="form-control" required
+											   th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid' : 'is-valid'"></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('phone')}" th:errors="*{phone}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('phone')}" th:text="#{page.inputOk}"></td>
+		    		</tr>
+					<tr>
+		    			<td th:text="#{teacher.email}"></td>
+		    			<td><input type="text" th:field="*{email}" size=50 placeholder="" class="form-control" required
+											   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : 'is-valid'"></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('email')}" th:errors="*{email}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('email')}" th:text="#{page.inputOk}"></td>
 		    		</tr>
 					<tr>
 		    			<td></td>
