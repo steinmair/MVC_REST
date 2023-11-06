@@ -21,6 +21,7 @@
 					<th th:text="#{teacher.phone}"></th>
 					<th th:text="#{teacher.email}"></th>
 
+
 					<th th:text="#{page.actions}"></th>
 	            </tr>
 	            <tr th:each="teacher:${teachers}">
@@ -32,11 +33,20 @@
 					<td th:text="${teacher.phone}"></td>
 					<td th:text="${teacher.email}"></td>
 					<td>
-						<a class="btn btn-primary btn-sm"
+						<a class="btn btn-warning btn-sm mt-2"
+						   th:href="@{/mvc/teachers/addEdit/{teacherId}(teacherId=${teacher.teacherId})}"
+							th:text="Bearbeiten">
+						</a>
+						<a class="btn btn-danger btn-sm mt-2"
+						   th:href="@{/mvc/teachers/delete/{teacherId}(teacherId=${teacher.teacherId})}"
+							th:text="Delete">
+						</a>
+
+						<a class="btn btn-primary btn-sm mt-2"
 						   th:href="@{/mvc/teachers/{teacherId}/departments(teacherId=${teacher.teacherId})}"
 							th:text="#{page.show(#{department.caption.plural})}">
 						</a>
-						<a class="btn btn-success btn-sm"
+						<a class="btn btn-success btn-sm mt-2"
 							th:href="@{/mvc/teachers/{teacherId}/schoolClasses(teacherId=${teacher.teacherId})}"
 							th:text="#{page.show(#{schoolClass.caption.plural})}">
 						</a>

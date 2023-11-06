@@ -11,23 +11,20 @@
     	<div class="container">
 			<div th:replace="fragments/Student.html :: show(student=${student})"></div>
 	    	<h2 th:text="#{studentSubject.caption.plural}"></h2>
-
+				<a class="btn btn-primary btn-sm"
+					th:href="@{/mvc/students/}"
+					th:text="#{page.show(#{student.caption.plural})}">
+				</a>
 	        <table class="table table-striped table-responsive-md">
 	            <tr>
 	                <th th:text="#{subject.caption.singular}"></th>
 	                <th th:text="#{studentSubject.grade}"></th>
-
 	            </tr>
 	            <tr th:each="studentSubject:${studentSubjects}">
 		            <td th:text="${studentSubject.getSubject().getName()}"></td>
 					<td th:classappend="(${studentSubject.grade == 5} ? 'bg-danger text-white' : (${studentSubject.grade == 1} ? 'bg-success text-white'))"
 						th:text="${studentSubject.getGrade()}"></td>
-
-					<a class="btn btn-primary btn-sm"
-						th:href="@{/mvc/students/}"
-						th:text="#{page.show(#{student.caption.plural})}">
-					</a>
-	            </tr>
+					</tr>
 	        </table>
 		</div>
     </body>

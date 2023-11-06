@@ -10,9 +10,8 @@
     <body>    
     	<div class="container">
 
+			<div th:replace="fragments/Student.html :: show(student=${student})"></div>
 		<!--
-			<div th:replace="fragments/Schoolclass.html :: show(schoolClass=${schoolClass})"></div>
-
 			NOCH NICHT FUNKTIONSFÄHIG
 		-->
 			<h2 th:text="#{absence.caption.plural}"></h2>
@@ -30,12 +29,12 @@
 		            <td th:text="${absence.reason}"></td>
 
 					<td>
-					<!--	<a th:href="@{/mvc/students/{studentId}/studentSubjects(studentId=${student.studentId})}"
-							th:text="#{page.show(#{subject.caption.plural})}">
+						<a th:href="@{/mvc/students/{studentId}/studentAbsences(studentId=${student.studentId})}"
+							th:text="#{page.show(#{absence.caption.plural})}">
 						</a>
-					-->
+
 						<a class="btn btn-primary btn-sm"
-							th:href="@{/mvc/students/{studentId}/studentSubjects(studentId=${student.studentId})}"
+							th:href="@{/mvc/students/{studentId}/absences(studentId=${student.studentId})}"
 							th:text="#{page.show(#{subject.caption.plural})}">
 						</a>
 					</td>

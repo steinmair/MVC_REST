@@ -12,6 +12,11 @@
 			<h2 th:text="#{teacher.caption.singular}"></h2>
 			<h2 th:text="${teacher.teacherId} ? #{entity.update} : #{entity.insert}"></h2>
 
+			<a class="btn btn-primary btn-sm mb-3"
+						   th:href="@{/mvc/teachers}"
+							th:text="#{page.show(#{teacher.caption.plural})}">
+			</a>
+
 			<form action="#"  th:action="@{/mvc/teachers/save}"
 		                      th:object="${teacher}" method="POST" enctype="application/x-www-form-urlencoded"
 		                      class="row needs-validation" novalidate>
@@ -79,8 +84,9 @@
 						<td></td>
 		    		</tr>
 				</table>
-				<p class="alert alert-danger" th:if="${error!=null}" th:text="${error}"></p>
-		    </form>	 
+<!--				<p class="alert alert-danger" th:if="${error!=null}" th:text="${error}"></p>-->
+				<p th:each="err:${#fields.errors('global')}" th:text="${err}" class="alert alert-danger" ></p>
+		    </form>
 		</div>     
     </body>
 </html>

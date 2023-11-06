@@ -1,5 +1,6 @@
 package at.htlklu.spring.controller;
 
+import at.htlklu.spring.api.ErrorsUtils;
 import at.htlklu.spring.model.*;
 import at.htlklu.spring.repository.*;
 
@@ -11,6 +12,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -201,17 +203,30 @@ public class TeacherController
 		logger.info(LogUtils.info(TeacherController.class.getSimpleName(), "save", String.format("%s", teacher)));
 
 		boolean error = false;
-
-		if (!error){
-			error= bindingResult.hasErrors();
-		}
-		if (!error){
-			teacherRepository.save(teacher);
-		}
-
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName(TeacherController.FORM_NAME_SINGLE); 			// hier wird der Fomularname eingegeben
 
+		if (!error){	// wenn kein Fehler (ist immer true)
+			error = bindingResult.hasErrors();	// im binding Result sind Fehler gespeichert die beim validieren vom Teacher hinsichtlich der Anotationen auftreten
+		}
+
+		error= bindingResult.hasErrors();	// im binding Result sind Fehler gespeichert die beim validieren vom Teacher hinsichtlich der Anotationen auftreten
+		if (!error){	// wenn kein Fehler dann speichern
+			try {
+				teacherRepository.save(teacher);	// Datensatz speichern
+			}catch (Exception e){					// Beispiel: Datenbank nicht verfügbar
+													// DB Contraints violated
+				error = true;
+				logger.info(LogUtils.info(CLASS_NAME,"save_save", ErrorsUtils.getErrorMessage(e)));
+
+				bindingResult.addError(new ObjectError("globalError",ErrorsUtils.getErrorMessage(e)));
+
+				}
+			}
+//		if (!error){
+//			teacherRepository.save(teacher);
+//		}
+
+		mv.setViewName(TeacherController.FORM_NAME_SINGLE); 			// hier wird der Fomularname eingegeben
 		mv.addObject("teacher",teacher);
 
 	    return mv;
