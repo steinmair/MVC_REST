@@ -215,6 +215,11 @@ public class TeacherController
 				teacherRepository.save(teacher);	// Datensatz speichern
 			}catch (Exception e){					// Beispiel: Datenbank nicht verfügbar
 													// DB Contraints violated
+
+				// Mögliche Fehler, die autreten könnten
+				// kein Netzwerk
+				// keine Berechtigung
+				// ShortName nicht eindeutig
 				error = true;
 				logger.info(LogUtils.info(CLASS_NAME,"save_save", ErrorsUtils.getErrorMessage(e)));
 
@@ -222,12 +227,18 @@ public class TeacherController
 
 				}
 			}
-//		if (!error){
-//			teacherRepository.save(teacher);
-//		}
+		if (!error){
+			mv.setViewName("redirect:/mvc/teachers");
+		}else {
+			// die Objekte "teacher" (wegen der Annotation @ModelAttribute) und
+			// "bindingResult" werden automatisch als Attribute beim Model "mv" hinzugefügt (add)
+			// d.h. die Aufrufe mv.addObject("teacher", teacher); und mv.addObject("bindingResult", bindingResult);
+			// sind nicht notwendig und sinnvoll
+			mv.setViewName(TeacherController.FORM_NAME_SINGLE); // sonst öffne wieder den fehlerhaften Lehrer und es werden die Fehlermeldungen
+		}
 
-		mv.setViewName(TeacherController.FORM_NAME_SINGLE); 			// hier wird der Fomularname eingegeben
-		mv.addObject("teacher",teacher);
+		//mv.setViewName(TeacherController.FORM_NAME_SINGLE); 			// hier wird der Fomularname eingegeben
+		//mv.addObject("teacher",teacher);
 
 	    return mv;
 	}

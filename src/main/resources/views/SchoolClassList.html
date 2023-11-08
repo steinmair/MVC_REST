@@ -31,11 +31,19 @@
 					<td th:text="${schoolClass.teacher}"></td>
 					<td th:text="${schoolClass.description}"></td>
 					<td>
-						<a class="btn btn-primary btn-sm"
+						<a class="btn btn-warning btn-sm mt-2"
+						   th:href="@{/mvc/schoolclasses/addEdit/{schoolClassId}(schoolClassId=${schoolClass.schoolClassId})}"
+							th:text="Bearbeiten">
+						</a>
+						<a class="btn btn-danger btn-sm mt-2"
+						   th:href="@{/mvc/schoolclasses/delete/{schoolClassId}(schoolClassId=${schoolClass.schoolClassId})}"
+							th:text="Delete">
+						</a>
+						<a class="btn btn-primary btn-sm mt-2"
 						    th:href="@{/mvc/schoolclasses/{schoolClassId}/students(schoolClassId=${schoolClass.schoolClassId})}"
 							th:text="#{page.show(#{student.caption.plural})}">
 						</a>
-						<a class="btn btn-success btn-sm"
+						<a class="btn btn-success btn-sm mt-2"
 						    th:href="@{/mvc/schoolclasses/{schoolClassId}/events(schoolClassId=${schoolClass.schoolClassId})}"
 							th:text="#{page.show(#{event.caption.plural})}">
 						</a>

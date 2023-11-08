@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{schoolClass.caption.singular}" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+ 		<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+    	<div class="container">
+			<h2 th:text="#{schoolClass.caption.singular}"></h2>
+			<h2 th:text="${schoolClass.schoolClassId} ? #{entity.update} : #{entity.insert}"></h2>
+
+			<a class="btn btn-primary btn-sm mb-3"
+						   th:href="@{/mvc/schoolclasses}"
+							th:text="#{page.show(#{schoolClass.caption.plural})}">
+			</a>
+
+			<form action="#"  th:action="@{/mvc/schoolclasses/save}"
+		                      th:object="${schoolClass}" method="POST" enctype="application/x-www-form-urlencoded"
+		                      class="row needs-validation" novalidate>
+		    	<table class="table table-striped table-responsive-md">
+		    		<tr>
+		    			<td th:text="#{schoolClass.schoolClassId}"></td>
+		    			<td><input type="text" th:field="*{schoolClassId}" size=10 readonly class="form-control"></td>
+						<td></td>
+		    		</tr>
+		    		<tr>
+		    			<td th:text="#{schoolClass.level}"></td>
+		    			<td><input type="text" th:field="*{level}" size=50 placeholder="" class="form-control" required
+											   th:classappend="${#fields.hasErrors('level')} ? 'is-invalid' : 'is-valid'"></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('level')}" th:errors="*{level}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('level')}" th:text="#{page.inputOk}"></td>
+		    		</tr>
+
+					<tr>
+		    			<td th:text="#{schoolClass.name}"></td>
+		    			<td><input type="text" th:field="*{name}" size=50 placeholder="" class="form-control" required
+											   th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : 'is-valid'"></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('name')}" th:text="#{page.inputOk}"></td>
+		    		</tr>
+					<tr>
+		    			<td th:text="#{schoolClass.department}"></td>
+		    			<td><input type="text" th:field="*{department}" size=50 placeholder="" class="form-control" required
+											   th:classappend="${#fields.hasErrors('department')} ? 'is-invalid' : 'is-valid'"></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('department')}" th:errors="*{department}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('department')}" th:text="#{page.inputOk}"></td>
+		    		</tr>
+					<tr>
+		    			<td th:text="#{schoolClass.teacher}"></td>
+		    			<td><input type="text" th:field="*{teacher}" size=50 placeholder="" class="form-control" required
+											   th:classappend="${#fields.hasErrors('teacher')} ? 'is-invalid' : 'is-valid'"></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('teacher')}" th:errors="*{teacher}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('teacher')}" th:text="#{page.inputOk}"></td>
+		    		</tr>
+					<tr>
+		    			<td th:text="#{schoolClass.description}"></td>
+		    			<td><input type="text" th:field="*{description}" size=50 placeholder="" class="form-control" required
+											   th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : 'is-valid'"></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('description')}" th:text="#{page.inputOk}"></td>
+		    		</tr>
+					<tr>
+		    			<td></td>
+						<td>
+		    				<input type="submit" class="btn btn-primary" th:value="#{button.save}"/>
+		    			</td>
+						<td></td>
+		    		</tr>
+				</table>
+<!--				<p class="alert alert-danger" th:if="${error!=null}" th:text="${error}"></p>-->
+				<p th:each="err:${#fields.errors('global')}" th:text="${err}" class="alert alert-danger" ></p>
+		    </form>
+		</div>     
+    </body>
+</html>
