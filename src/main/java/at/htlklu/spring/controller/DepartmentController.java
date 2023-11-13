@@ -34,6 +34,8 @@ public class DepartmentController
 
 	@Autowired
 	DepartmentRepository departmentRepository;
+	@Autowired
+	TeacherRepository teacherRepository;
 	//endregion
 
 	// localhost:8082/mvc/departments
@@ -95,7 +97,13 @@ public class DepartmentController
 
 		Department department = departmentRepository.findById(departmentId).orElse(new Department());
 
+		List<Teacher> teachers = teacherRepository.findAll()
+				.stream()
+				.sorted(Teacher.BY_SURNAME_FIRSTNAME)
+				.collect(Collectors.toList());
+
 		mv.addObject("department",department);
+		mv.addObject("teachers",teachers);
 
 	    return mv;
 	}
@@ -130,6 +138,12 @@ public class DepartmentController
 			mv.setViewName("redirect:/mvc/departments");
 		}else {
 			mv.setViewName(DepartmentController.FORM_NAME_SINGLE);
+
+			List<Teacher> teachers = teacherRepository.findAll()
+				.stream()
+				.sorted(Teacher.BY_SURNAME_FIRSTNAME)
+				.collect(Collectors.toList());
+			mv.addObject("teachers", teachers);
 		}
 
 	    return mv;

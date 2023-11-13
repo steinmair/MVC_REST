@@ -41,6 +41,7 @@
 		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('nameShort')}" th:errors="*{nameShort}"></td>
 						<td class="alert alert-success" th:unless="${#fields.hasErrors('nameShort')}" th:text="#{page.inputOk}"></td>
 		    		</tr>
+				<!--
 					<tr>
 		    			<td th:text="#{department.teacher}"></td>
 		    			<td><input type="text" th:field="*{teacher}" size=50 placeholder="" class="form-control" required
@@ -48,7 +49,18 @@
 		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('teacher')}" th:errors="*{teacher}"></td>
 						<td class="alert alert-success" th:unless="${#fields.hasErrors('teacher')}" th:text="#{page.inputOk}"></td>
 		    		</tr>
-
+				-->
+					<tr>
+		    			<td th:text="#{department.teacher}"></td>
+		    			<td><select class="form-control" th:field="*{teacher}">
+							<option th:each="t:${teachers}"
+									th:value="${t.teacherId}"
+									th:text="${t}">
+							</option>
+						</select></td>
+		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('teacher')}" th:errors="*{teacher}"></td>
+						<td class="alert alert-success" th:unless="${#fields.hasErrors('teacher')}" th:text="#{page.inputOk}"></td>
+		    		</tr>
 					<tr>
 		    			<td></td>
 						<td>
