@@ -97,10 +97,17 @@ public class DepartmentController
 
 		Department department = departmentRepository.findById(departmentId).orElse(new Department());
 
-		List<Teacher> teachers = teacherRepository.findAll()
-				.stream()
-				.sorted(Teacher.BY_SURNAME_FIRSTNAME)
-				.collect(Collectors.toList());
+		//Variante 1:
+		//List<Teacher> teachers = teacherRepository.findAll();
+
+
+//		//Variante 2:
+//		List<Teacher> teachers = teacherRepository.findAll()
+//				.stream()
+//				.sorted(Teacher.BY_SURNAME_FIRSTNAME)
+//				.collect(Collectors.toList());
+//
+		List<Teacher> teachers = teacherRepository.findByOrderBySurnameAscFirstnameAsc();
 
 		mv.addObject("department",department);
 		mv.addObject("teachers",teachers);

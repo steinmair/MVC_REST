@@ -5,6 +5,7 @@ import at.htlklu.spring.api.LogUtils;
 import at.htlklu.spring.model.*;
 import at.htlklu.spring.repository.DepartmentRepository;
 import at.htlklu.spring.repository.SchoolClassRepository;
+import at.htlklu.spring.repository.TeacherRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class SchoolClassController
 
 	@Autowired
 	SchoolClassRepository schoolClassRepository;
+	@Autowired
+	TeacherRepository teacherRepository;
+	@Autowired
+	DepartmentRepository departmentRepository;
 	//endregion
 
 	// localhost:8082/mvc/schoolclass
@@ -119,8 +124,12 @@ public class SchoolClassController
 
 		SchoolClass schoolClass = schoolClassRepository.findById(schoolClassId).orElse(new SchoolClass());
 
-		mv.addObject("schoolClass",schoolClass);
+		List<Teacher> teachers = teacherRepository.findByOrderBySurnameAscFirstnameAsc();
+		List<Department> departments = departmentRepository.findAll();
 
+		mv.addObject("schoolClass",schoolClass);
+		mv.addObject("departments",departments);
+		mv.addObject("teachers",teachers);
 	    return mv;
 	}
 
@@ -163,6 +172,14 @@ public class SchoolClassController
 			// d.h. die Aufrufe mv.addObject("teacher", teacher); und mv.addObject("bindingResult", bindingResult);
 			// sind nicht notwendig und sinnvoll
 			mv.setViewName(SchoolClassController.FORM_NAME_SINGLE); // sonst öffne wieder den fehlerhaften Lehrer und es werden die Fehlermeldungen
+
+			List<Teacher> teachers = teacherRepository.findAll()
+					.stream()
+					.sorted(Teacher.BY_SURNAME_FIRSTNAME)
+					.collect(Collectors.toList());
+			mv.addObject("teachers", teachers);
+			List<Department> departments = departmentRepository.findAll();
+			mv.addObject("departments", departments);
 		}
 
 		//mv.setViewName(TeacherController.FORM_NAME_SINGLE); 			// hier wird der Fomularname eingegeben

@@ -41,20 +41,35 @@
 		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('name')}" th:errors="*{name}"></td>
 						<td class="alert alert-success" th:unless="${#fields.hasErrors('name')}" th:text="#{page.inputOk}"></td>
 		    		</tr>
+
 					<tr>
-		    			<td th:text="#{schoolClass.department}"></td>
-		    			<td><input type="text" th:field="*{department}" size=50 placeholder="" class="form-control" required
-											   th:classappend="${#fields.hasErrors('department')} ? 'is-invalid' : 'is-valid'"></td>
-		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('department')}" th:errors="*{department}"></td>
+						<td th:text="#{schoolClass.department}"></td>
+						<td><select class="form-control" name="department" id="department" required>
+							<option value="-1" th:text="#{option.choose}"></option>
+							<option th:each="d: ${departments}"
+									th:selected="${d.departmentId} == (*{department} != null ? *{department.departmentId} : -1)"
+									th:value="${d.departmentId}"
+									th:text="${d}">
+							</option>
+						</select></td>
+						<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('department')}" th:errors="*{department}"></td>
 						<td class="alert alert-success" th:unless="${#fields.hasErrors('department')}" th:text="#{page.inputOk}"></td>
-		    		</tr>
+					</tr>
+
 					<tr>
-		    			<td th:text="#{schoolClass.teacher}"></td>
-		    			<td><input type="text" th:field="*{teacher}" size=50 placeholder="" class="form-control" required
-											   th:classappend="${#fields.hasErrors('teacher')} ? 'is-invalid' : 'is-valid'"></td>
-		    			<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('teacher')}" th:errors="*{teacher}"></td>
+						<td th:text="#{schoolClass.teacher}"></td>
+						<td><select class="form-control" name="teacher" id="teacher" required>
+							<option value="-1" th:text="#{option.choose}"></option>
+							<option th:each="t: ${teachers}"
+									th:selected="${t.teacherId} == (*{teacher} != null ? *{teacher.teacherId} : -1)"
+									th:value="${t.teacherId}"
+									th:text="${t}">
+							</option>
+						</select></td>
+						<td class="alert alert-danger"  th:if=    "${#fields.hasErrors('teacher')}" th:errors="*{teacher}"></td>
 						<td class="alert alert-success" th:unless="${#fields.hasErrors('teacher')}" th:text="#{page.inputOk}"></td>
-		    		</tr>
+					</tr>
+
 					<tr>
 		    			<td th:text="#{schoolClass.description}"></td>
 		    			<td><input type="text" th:field="*{description}" size=50 placeholder="" class="form-control" required
