@@ -26,6 +26,8 @@
 	                <th th:text="#{department.nameShort}"></th>
 	                <th th:text="#{department.teacher}"></th>
 	                <th style="text-align: right" th:text="#{department.averageCountStudentsBySchoolclass}"></th>
+	                <th th:text="#{department.countStudentsMale}+ '/' + #{department.countStudentsFemale}"></th>
+
 					<th th:text="#{page.actions}"></th>
 	            </tr>
 	            <tr th:each="department:${departments}">
@@ -37,6 +39,7 @@
 					<td style="text-align: right" th:classappend="${department.averageStudentsCountByClass() < 30} ? 'bg-danger text-white': 'bg-success text-white'"
 						th:text="${#numbers.formatDecimal(department.averageStudentsCountByClass(),1,2)}"></td>
 				<!--	<td th:classappend="${studentSubject.grade == 5} ? 'bg-danger text-white': 'bg-success text-white'" th:text="variable"></td> -->
+						<td th:text="${department.countStudentsMale()}+'/'+ ${department.countStudentsFemale()}"></td>
 					<td>
 						<a class="btn btn-warning btn-sm mt-2"
 						   th:href="@{/mvc/departments/addEdit/{departmentId}(departmentId=${department.departmentId})}"

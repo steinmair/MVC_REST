@@ -48,7 +48,11 @@ public class DepartmentController
 
 		mv.setViewName(DepartmentController.FORM_NAME_LIST);									// Übergabe der View
 
-		List<Department> departments = departmentRepository.findAll();			// Sortierung fehlt
+		// Variante 1 ohne Optimierung
+		//List<Department> departments = departmentRepository.findAll();			// Sortierung fehlt
+
+		// Variante 2 mit Optimierung
+		List<Department> departments = departmentRepository.findByOrderByNameAsc();			// Sortierung fehlt
 		mv.addObject("departments", departments);					// Übergabe des Models, Der attribute Name wird der for each loop im TeacherList.html (table) übergeben
 
 	    return mv;

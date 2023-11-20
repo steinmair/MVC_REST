@@ -81,6 +81,18 @@ public class Department extends RepresentationModel<Department> implements Seria
 				.mapToInt(schoolclass -> schoolclass.getStudents().size())
 				.average().orElse(-1);
 	}
+
+	public long countStudentsMale(){
+		 return this.schoolClasses.stream()
+				 .mapToLong(schoolClass -> schoolClass.countStudentsMale()).sum();
+
+//		return this.schoolClasses.stream()
+//				.flatMap(schoolClass -> schoolClass.getStudents().stream())
+//				.filter(student -> student.isMale()).count();
+	}
+	public long countStudentsFemale(){
+		return this.schoolClasses.stream().mapToLong(schoolClass -> schoolClass.countStudentsFemale()).sum();
+	}
 	//endregion
 
 

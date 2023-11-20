@@ -77,6 +77,16 @@ public class SchoolClass extends RepresentationModel<SchoolClass> implements Ser
 		this.level = level;
 		this.description = description;
 	}
+
+	@JsonGetter("countMale")
+	public long countStudentsMale(){
+		return this.students.stream().filter(student -> student.isMale()).count();
+
+		}
+	@JsonGetter("countFemale")
+	public long countStudentsFemale(){
+		return this.students.stream().filter(student -> student.isFemale()).count();
+	}
 	//endregion
 
 
