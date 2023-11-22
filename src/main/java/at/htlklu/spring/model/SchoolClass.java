@@ -30,18 +30,23 @@ public class SchoolClass extends RepresentationModel<SchoolClass> implements Ser
 	@Column(name = "SCHOOLCLASS_ID")				
 	private Integer schoolClassId;
 
+
 	@NotBlank	
 	private String name;
+
+
 	@Min(value = 9)
     @Max(value = 13)
 	private Integer level;
 	private String description;
 
+	@JsonIgnore
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DEPARTMENT_ID")
 	private Department department;
 
+	@JsonIgnore
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TEACHER_ID")
@@ -78,11 +83,13 @@ public class SchoolClass extends RepresentationModel<SchoolClass> implements Ser
 		this.description = description;
 	}
 
+	@JsonIgnore
 	@JsonGetter("countMale")
 	public long countStudentsMale(){
 		return this.students.stream().filter(student -> student.isMale()).count();
 
 		}
+	@JsonIgnore
 	@JsonGetter("countFemale")
 	public long countStudentsFemale(){
 		return this.students.stream().filter(student -> student.isFemale()).count();

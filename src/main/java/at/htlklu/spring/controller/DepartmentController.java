@@ -53,6 +53,8 @@ public class DepartmentController
 
 		// Variante 2 mit Optimierung
 		List<Department> departments = departmentRepository.findByOrderByNameAsc();			// Sortierung fehlt
+		logger.info(LogUtils.info(CLASS_NAME, "show-end"));
+
 		mv.addObject("departments", departments);					// Übergabe des Models, Der attribute Name wird der for each loop im TeacherList.html (table) übergeben
 
 	    return mv;
