@@ -19,6 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("teachers")
 public class RestUtilitiesController {
+    /*
     private static final Logger logger = LogManager.getLogger(RestUtilitiesController.class);
     private static final String className = "TeacherRestController";
 
@@ -193,27 +194,7 @@ public class RestUtilitiesController {
         return result;
     }
 }
+*/
 
-//        try {
-//            Optional<Teacher> optTeacher = teacherRepository.findById(teacherId);
-//            teacher = optTeacher.get();
-//
-//            teacherRepository.deleteById(teacherId);
-//
-//        } catch (Exception e) {
-//            error = true;
-//            errorMessage = ErrorsUtils.getErrorMessage(e);
-//        }
-//
-//        if (!error){
-//            result = new ResponseEntity<Teacher>(teacher, HttpStatus.OK);
-//        }else {
-//            // Fehlermeldung
-//           result = new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//
-//        return result;
-//    }
-
-
+}
 

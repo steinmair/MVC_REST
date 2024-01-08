@@ -1,6 +1,7 @@
 package at.htlklu.spring.restController;
 
 import at.htlklu.spring.api.ErrorsUtils;
+import at.htlklu.spring.api.HateoasUtils;
 import at.htlklu.spring.api.LogUtils;
 import at.htlklu.spring.controller.TeacherController;
 import at.htlklu.spring.model.SchoolClass;
@@ -10,6 +11,8 @@ import at.htlklu.spring.repository.TeacherRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -22,9 +25,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 @RequestMapping("teachers")
-public class TeacherRestController {
+public class TeacherRestController extends RepresentationModel {
     private static final Logger logger = LogManager.getLogger(TeacherRestController.class);
     private static final String className = "TeacherRestController";
 
@@ -39,8 +44,11 @@ public class TeacherRestController {
         logger.info(LogUtils.info(className, "getByPV", String.format("(%d)", teacherId)));
         ResponseEntity<?> result;
         Optional<Teacher> optTeacher = teacherRepository.findById(teacherId);
+
+
         if (optTeacher.isPresent()) {
             Teacher teacher = optTeacher.get();
+            addLinks(teacher);
             result = new ResponseEntity<>(teacher, HttpStatus.OK);
         } else {
             result = new ResponseEntity<>(String.format("Lehrer/in mit der Id = %d nicht vorhanden", teacherId),
@@ -61,6 +69,21 @@ public class TeacherRestController {
         } else {
             result = new ResponseEntity<>(String.format("Lehrer/in mit der Id = %d hat keine Schulklasse", teacherId),
                     HttpStatus.NOT_FOUND);
+        }
+        return result;
+    }
+
+    @GetMapping(value = "{teacherId}/departments")
+    public ResponseEntity<?> getByIdDepartments(@PathVariable Integer teacherId){
+        logger.info(LogUtils.info(className, "getByIdDepartments", String.format("(%d)", teacherId)));
+        ResponseEntity<?> result;
+        Optional<Teacher> optTeacher = teacherRepository.findById(teacherId);
+
+        if (optTeacher.isPresent()){
+            Teacher teacher = optTeacher.get();
+            result = new ResponseEntity<>(teacher.getDepartments(), HttpStatus.OK);
+        }else {
+            result = new ResponseEntity<>(String.format("Lehrer mit der Id= %d ist kein Abteilungsvorstand!", teacherId), HttpStatus.NOT_FOUND);
         }
         return result;
     }
@@ -139,30 +162,6 @@ public class TeacherRestController {
 
 //endregion
 
-//    @DeleteMapping(value = "{teacherId}")
-//    public ResponseEntity<?> deletePV(@PathVariable Integer teacherId){
-//        logger.info(LogUtils.info(className, "deletePV",String.format("(%d)", teacherId)));
-//        boolean error = false;
-//        String errorMessage = "";
-//        ResponseEntity<?> result;
-//
-//        try {
-//            teacherRepository.deleteById(teacherId);
-//        } catch (Exception e) {
-//            error = true;
-//            errorMessage = ErrorsUtils.getErrorMessage(e);
-//        }
-//
-//        if (!error){
-//            result = new ResponseEntity<>("Alles super", HttpStatus.OK);
-//        }else {
-//            // Fehlermeldung
-//           result = new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//
-//        return result;
-//    }
-
     @DeleteMapping(value = "{teacherId}")
     public ResponseEntity<?> deletePV2(@PathVariable Integer teacherId) {
         logger.info(LogUtils.info(className, "deletePV2", String.format("(%d)", teacherId)));
@@ -198,28 +197,21 @@ public class TeacherRestController {
 
         return result;
     }
+
+    public static void addLinks(Teacher teacher){
+        if (HateoasUtils.enableHateoas){
+            teacher.add(WebMvcLinkBuilder.linkTo(methodOn(TeacherRestController.class)
+                            .getByIdPV(teacher.getTeacherId()))
+                            .withSelfRel());
+            teacher.add(WebMvcLinkBuilder.linkTo(methodOn(TeacherRestController.class)
+                            .getByIdSchoolClass(teacher.getTeacherId()))
+                            .withRel("schoolClasses"));
+            teacher.add(WebMvcLinkBuilder.linkTo(methodOn(TeacherRestController.class)
+                    .getByIdDepartments(teacher.getTeacherId())).withRel("departments"));
+        }
+    }
 }
 
-//        try {
-//            Optional<Teacher> optTeacher = teacherRepository.findById(teacherId);
-//            teacher = optTeacher.get();
-//
-//            teacherRepository.deleteById(teacherId);
-//
-//        } catch (Exception e) {
-//            error = true;
-//            errorMessage = ErrorsUtils.getErrorMessage(e);
-//        }
-//
-//        if (!error){
-//            result = new ResponseEntity<Teacher>(teacher, HttpStatus.OK);
-//        }else {
-//            // Fehlermeldung
-//           result = new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//
-//        return result;
-//    }
 
 
 
