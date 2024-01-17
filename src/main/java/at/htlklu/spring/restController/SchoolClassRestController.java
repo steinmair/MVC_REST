@@ -3,7 +3,9 @@ package at.htlklu.spring.restController;
 import at.htlklu.spring.api.ErrorsUtils;
 import at.htlklu.spring.api.HateoasUtils;
 import at.htlklu.spring.api.LogUtils;
+import at.htlklu.spring.model.Event;
 import at.htlklu.spring.model.SchoolClass;
+import at.htlklu.spring.model.Student;
 import at.htlklu.spring.repository.SchoolClassRepository;
 import at.htlklu.spring.repository.TeacherRepository;
 import org.apache.logging.log4j.LogManager;
@@ -18,11 +20,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("departments")
+@RequestMapping("schoolClasses")
 public class SchoolClassRestController extends RepresentationModel {
     private static final Logger logger = LogManager.getLogger(SchoolClassRestController.class);
     private static final String className = "SchoolClassRestController";
@@ -31,6 +34,8 @@ public class SchoolClassRestController extends RepresentationModel {
     TeacherRepository teacherRepository;
     @Autowired
     SchoolClassRepository schoolClassRepository;
+    @Autowired
+    EventRestController eventRestController;
 
     //http://localhost:8082/teachers/1
     @GetMapping(value = "{schoolClassId}")
@@ -59,7 +64,10 @@ public class SchoolClassRestController extends RepresentationModel {
 
         if (optionalSchoolClass.isPresent()) {
             SchoolClass schoolClass = optionalSchoolClass.get();
-            result = new ResponseEntity<>(schoolClass.getStudents(), HttpStatus.OK);
+            SchoolClassRestController.addLinks(schoolClass);
+            Set<Student> students =  schoolClass.getStudents();
+            students.forEach(student -> StudentRestController.addLinks(student));
+            result = new ResponseEntity<>(students, HttpStatus.OK);
         } else {
             result = new ResponseEntity<>(String.format("SchoolClass mit der Id = %d hat keine Studenten", schoolClassId),
                     HttpStatus.NOT_FOUND);
@@ -75,7 +83,11 @@ public class SchoolClassRestController extends RepresentationModel {
 
         if (optionalSchoolClass.isPresent()){
             SchoolClass schoolClass = optionalSchoolClass.get();
-            result = new ResponseEntity<>(schoolClass.getEvents(), HttpStatus.OK);
+            SchoolClassRestController.addLinks(schoolClass);
+            Set<Event> events =  schoolClass.getEvents();
+            events.forEach(event -> EventRestController.addLinks(event));
+            result = new ResponseEntity<>(events, HttpStatus.OK);
+
         }else {
             result = new ResponseEntity<>(String.format("SchoolClass mit der Id= %d hat keine Events!", schoolClassId), HttpStatus.NOT_FOUND);
         }

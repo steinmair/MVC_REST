@@ -4,10 +4,7 @@ import at.htlklu.spring.api.ErrorsUtils;
 import at.htlklu.spring.api.HateoasUtils;
 import at.htlklu.spring.api.LogUtils;
 import at.htlklu.spring.model.Student;
-import at.htlklu.spring.repository.AbsenceRepository;
-import at.htlklu.spring.repository.AddressRepository;
-import at.htlklu.spring.repository.StudentRepository;
-import at.htlklu.spring.repository.StudentSubjectRepository;
+import at.htlklu.spring.repository.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +21,10 @@ import java.util.Optional;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("events")
+@RequestMapping("students")
 public class StudentRestController extends RepresentationModel {
     private static final Logger logger = LogManager.getLogger(StudentRestController.class);
-    private static final String className = "DepartmentRestController";
+    private static final String className = "StudentRestController";
 
 
     @Autowired
@@ -38,6 +35,8 @@ public class StudentRestController extends RepresentationModel {
     StudentSubjectRepository studentSubjectRepository;
     @Autowired
     AddressRepository addressRepository;
+    @Autowired
+    SchoolClassRepository schoolClassRepository;
 
     //http://localhost:8082/teachers/1
     @GetMapping(value = "{studentId}")

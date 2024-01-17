@@ -4,6 +4,9 @@ import at.htlklu.spring.api.ErrorsUtils;
 import at.htlklu.spring.api.HateoasUtils;
 import at.htlklu.spring.api.LogUtils;
 import at.htlklu.spring.model.Department;
+import at.htlklu.spring.model.SchoolClass;
+import at.htlklu.spring.model.Student;
+import at.htlklu.spring.model.Teacher;
 import at.htlklu.spring.repository.DepartmentRepository;
 import at.htlklu.spring.repository.TeacherRepository;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -59,7 +63,10 @@ public class DepartmentRestController extends RepresentationModel {
 
         if (optionalDepartment.isPresent()) {
             Department department = optionalDepartment.get();
-            result = new ResponseEntity<>(department.getSchoolClasses(), HttpStatus.OK);
+            DepartmentRestController.addLinks(department);
+            Set<SchoolClass> schoolClasses =  department.getSchoolClasses();
+            schoolClasses.forEach(schoolClass -> SchoolClassRestController.addLinks(schoolClass));
+            result = new ResponseEntity<>(schoolClasses, HttpStatus.OK);
         } else {
             result = new ResponseEntity<>(String.format("Department mit der Id = %d hat keine SchoolClasses", departmentId),
                     HttpStatus.NOT_FOUND);
@@ -75,7 +82,10 @@ public class DepartmentRestController extends RepresentationModel {
 
         if (optionalDepartment.isPresent()){
             Department department = optionalDepartment.get();
-            result = new ResponseEntity<>(department.getTeacher(), HttpStatus.OK);
+            DepartmentRestController.addLinks(department);
+            Teacher teacher =  department.getTeacher();
+            TeacherRestController.addLinks(teacher);
+            result = new ResponseEntity<>(teacher, HttpStatus.OK);
         }else {
             result = new ResponseEntity<>(String.format("Department mit der Id= %d hat keinen Teacher!", departmentId), HttpStatus.NOT_FOUND);
         }

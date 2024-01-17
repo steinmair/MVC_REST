@@ -30,7 +30,7 @@ public class Subject extends RepresentationModel<Subject> implements Serializabl
 	private String nameShort;
 	private boolean main;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy = "subject", 						
 			   cascade = CascadeType.MERGE, 	
 			   orphanRemoval = true, 

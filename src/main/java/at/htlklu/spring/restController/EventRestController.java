@@ -3,8 +3,8 @@ package at.htlklu.spring.restController;
 import at.htlklu.spring.api.ErrorsUtils;
 import at.htlklu.spring.api.HateoasUtils;
 import at.htlklu.spring.api.LogUtils;
-import at.htlklu.spring.model.Student;
-import at.htlklu.spring.repository.StudentRepository;
+import at.htlklu.spring.model.Event;
+import at.htlklu.spring.repository.EventRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,65 +28,36 @@ public class EventRestController extends RepresentationModel {
 
 
     @Autowired
-    StudentRepository studentRepository;
+    EventRepository eventRepository;
+
 
     //http://localhost:8082/teachers/1
-    @GetMapping(value = "{studentId}")
-    public ResponseEntity<?> getByIdPV(@PathVariable Integer studentId) {
-        logger.info(LogUtils.info(className, "getByPV", String.format("(%d)", studentId)));
+    @GetMapping(value = "{eventId}")
+    public ResponseEntity<?> getByIdPV(@PathVariable Integer eventId) {
+        logger.info(LogUtils.info(className, "getByPV", String.format("(%d)", eventId)));
         ResponseEntity<?> result;
-        Optional<Student> optionalStudent = studentRepository.findById(studentId);
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
 
 
-        if (optionalStudent.isPresent()) {
-            Student student = optionalStudent.get();
-            addLinks(student);
-            result = new ResponseEntity<>(student, HttpStatus.OK);
+        if (optionalEvent.isPresent()) {
+            Event event = optionalEvent.get();
+            addLinks(event);
+            result = new ResponseEntity<>(event, HttpStatus.OK);
         } else {
-            result = new ResponseEntity<>(String.format("Student mit der Id = %d nicht vorhanden", studentId),
+            result = new ResponseEntity<>(String.format("Event mit der Id = %d nicht vorhanden", eventId),
                     HttpStatus.NOT_FOUND);
         }
         return result;
     }
 
-    @GetMapping(value = "{studentId}/addresses")
-    public ResponseEntity<?> getByIdAdress(@PathVariable Integer studentId) {
-        logger.info(LogUtils.info(className, "getByIdAdresses", String.format("(%d)", studentId)));
-        ResponseEntity<?> result;
-        Optional<Student> optionalStudent = studentRepository.findById(studentId);
-
-        if (optionalStudent.isPresent()) {
-            Student student = optionalStudent.get();
-            result = new ResponseEntity<>(student.getAddresses(), HttpStatus.OK);
-        } else {
-            result = new ResponseEntity<>(String.format("Student mit der Id = %d hat keine Addresse", studentId),
-                    HttpStatus.NOT_FOUND);
-        }
-        return result;
-    }
-
-    @GetMapping(value = "{studentId}/absences")
-    public ResponseEntity<?> getByIdAbsences(@PathVariable Integer studentId){
-        logger.info(LogUtils.info(className, "getByIdAbsences", String.format("(%d)", studentId)));
-        ResponseEntity<?> result;
-        Optional<Student> optionalStudent = studentRepository.findById(studentId);
-
-        if (optionalStudent.isPresent()){
-            Student student = optionalStudent.get();
-            result = new ResponseEntity<>(student.getAbsences(), HttpStatus.OK);
-        }else {
-            result = new ResponseEntity<>(String.format("Student mit der Id= %d hat keine Absences!", studentId), HttpStatus.NOT_FOUND);
-        }
-        return result;
-    }
 
     //region Put and Push
 // einfügen einer neuen Ressource
     @PostMapping(value = "")
-    public ResponseEntity<?> add(@Valid @RequestBody Student student,
+    public ResponseEntity<?> add(@Valid @RequestBody Event event,
                                  BindingResult bindingResult) {
 
-        logger.info(LogUtils.info(className, "add", String.format("(%s)", student)));
+        logger.info(LogUtils.info(className, "add", String.format("(%s)", event)));
 
         boolean error = false;
         String errorMessage = "";
@@ -98,7 +69,7 @@ public class EventRestController extends RepresentationModel {
 
         if (!error) {
             try {
-                studentRepository.save(student);
+                eventRepository.save(event);
             } catch (Exception e) {
                 e.printStackTrace();
                 error = true;
@@ -108,7 +79,7 @@ public class EventRestController extends RepresentationModel {
 
         ResponseEntity<?> result;
         if (!error) {
-            result = new ResponseEntity<>(student, HttpStatus.OK);
+            result = new ResponseEntity<>(event, HttpStatus.OK);
 
         } else {
             result = new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -120,10 +91,10 @@ public class EventRestController extends RepresentationModel {
 
     // ändern einer vorhandenen Ressource
     @PutMapping(value = "")
-    public ResponseEntity<?> update(@Valid @RequestBody Student student,
+    public ResponseEntity<?> update(@Valid @RequestBody Event event,
                                     BindingResult bindingResult) {
 
-        logger.info(LogUtils.info(className, "update", String.format("(%s)", student)));
+        logger.info(LogUtils.info(className, "update", String.format("(%s)", event)));
 
         boolean error = false;
         String errorMessage = "";
@@ -134,7 +105,7 @@ public class EventRestController extends RepresentationModel {
         }
         if (!error) {
             try {
-                studentRepository.save(student);
+                eventRepository.save(event);
             } catch (Exception e) {
                 e.printStackTrace();
                 error = true;
@@ -143,7 +114,7 @@ public class EventRestController extends RepresentationModel {
         }
         ResponseEntity<?> result;
         if (!error) {
-            result = new ResponseEntity<>(student, HttpStatus.OK);
+            result = new ResponseEntity<>(event, HttpStatus.OK);
 
         } else {
             result = new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -154,35 +125,35 @@ public class EventRestController extends RepresentationModel {
 
 //endregion
 
-    @DeleteMapping(value = "{studentId}")
-    public ResponseEntity<?> deletePV2(@PathVariable Integer studentId) {
-        logger.info(LogUtils.info(className, "deletePV2", String.format("(%d)", studentId)));
+    @DeleteMapping(value = "{eventId}")
+    public ResponseEntity<?> deletePV2(@PathVariable Integer eventId) {
+        logger.info(LogUtils.info(className, "deletePV2", String.format("(%d)", eventId)));
         boolean error = false;
         String errorMessage = "";
         ResponseEntity<?> result;
-        Student student = null;
+        Event event = null;
 
 
         if (!error) {
-            Optional<Student> optionalStudent = studentRepository.findById(studentId);
-            if (optionalStudent.isPresent()) {
-                student = optionalStudent.get();
+            Optional<Event> optionalEvent = eventRepository.findById(eventId);
+            if (optionalEvent.isPresent()) {
+                event = optionalEvent.get();
             } else {
                 error = true;
-                errorMessage = "Student not found";
+                errorMessage = "Event not found";
             }
         }
 
         if (!error) {
             try {
-                studentRepository.delete(student);
+                eventRepository.delete(event);
             } catch (Exception e) {
                 error = true;
                 errorMessage = ErrorsUtils.getErrorMessage(e);
             }
         }
         if (!error) {
-            result = new ResponseEntity<>(student, HttpStatus.OK);
+            result = new ResponseEntity<>(event, HttpStatus.OK);
         } else {
             result = new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -190,16 +161,11 @@ public class EventRestController extends RepresentationModel {
         return result;
     }
 
-    public static void addLinks(Student student){
+    public static void addLinks(Event event){
         if (HateoasUtils.enableHateoas){
-            student.add(WebMvcLinkBuilder.linkTo(methodOn(EventRestController.class)
-                            .getByIdPV(student.getStudentId()))
+            event.add(WebMvcLinkBuilder.linkTo(methodOn(EventRestController.class)
+                            .getByIdPV(event.getEventId()))
                             .withSelfRel());
-            student.add(WebMvcLinkBuilder.linkTo(methodOn(EventRestController.class)
-                            .getByIdAdress(student.getStudentId()))
-                            .withRel("addresses"));
-            student.add(WebMvcLinkBuilder.linkTo(methodOn(EventRestController.class)
-                    .getByIdAbsences(student.getStudentId())).withRel("absences"));
         }
     }
 }

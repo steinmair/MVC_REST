@@ -41,7 +41,7 @@ public class Department extends RepresentationModel<Department> implements Seria
 //	@JsonIgnore							// Achtung: auch die @JsonProperty auskommentieren !!
 	private Teacher teacher;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy = "department",  							// JPA (mappedBy gibt das Feld in der Klasse "SchoolClass" an)
 			   cascade = CascadeType.MERGE,
 			   orphanRemoval = true, 
