@@ -16,7 +16,10 @@ public interface DepartmentRepository extends JpaRepository<Department, Integer>
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH,
              attributePaths = {"teacher",
                                 "schoolClasses",
-                                "schoolClasses.students"})
+                                "schoolClasses.students",
+                                "schoolClasses.events"})
+
     List<Department> findByOrderByNameAsc();
+
 
 }

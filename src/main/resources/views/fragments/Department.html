@@ -11,9 +11,17 @@
 			<table class="table table-striped table-responsive-md">
 				<tr>
 					<th th:text="#{department.name}"></th>
+					<th th:text="#{department.nameShort}"></th>
+					<th th:text="#{department.teacher}"></th>
+					<th th:text="#{department.countStudentsMale}"></th>
+					<th th:text="#{department.countStudentsFemale}"></th>
 				</tr>
 				<tr>
 					<td th:text="${department.name}"></td>
+					<td th:text="${department.nameShort}"></td>
+					<td th:text="${department.teacher.fullName()}"></td>
+					<td th:text="${department.countStudentsMale()}"></td>
+					<td th:text="${department.countStudentsFemale()}"></td>
 				</tr>
 			</table>
 		</div>

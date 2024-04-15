@@ -34,14 +34,15 @@ public class Department extends RepresentationModel<Department> implements Seria
 	@Column(name = "NAME_SHORT")									
 	private String nameShort;
 
-	@JsonProperty("head")
+	//@JsonProperty("head")
+	@JsonIgnore
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "TEACHER_ID")
 //	@JsonIgnore							// Achtung: auch die @JsonProperty auskommentieren !!
 	private Teacher teacher;
 
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy = "department",  							// JPA (mappedBy gibt das Feld in der Klasse "SchoolClass" an)
 			   cascade = CascadeType.MERGE,
 			   orphanRemoval = true, 

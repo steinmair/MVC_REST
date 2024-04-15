@@ -39,6 +39,17 @@ public class TeacherRestController extends RepresentationModel {
     SchoolClassRepository schoolClassRepository;
 
     //http://localhost:8082/teachers/1
+    @GetMapping("")
+    public ResponseEntity<?> getAll() {
+        logger.info(LogUtils.info(className, "getAllTeachers", "Get all teachers"));
+        List<Teacher> teachers = teacherRepository.findAll();
+        if (!teachers.isEmpty()) {
+
+            return new ResponseEntity<>(teachers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @GetMapping(value = "{teacherId}")
     public ResponseEntity<?> getByIdPV(@PathVariable Integer teacherId) {
         logger.info(LogUtils.info(className, "getByPV", String.format("(%d)", teacherId)));

@@ -46,25 +46,26 @@ public class Student extends RepresentationModel<Student> implements Serializabl
 	private Integer height;
 	private Double weight;
 
+	//@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "SCHOOLCLASS_ID")
 	private SchoolClass schoolClass;
 
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy = "student",
 			   cascade = CascadeType.MERGE,
 			   orphanRemoval = true,
 			   fetch = FetchType.LAZY)
 	private Set<StudentSubject> studentSubjects = new HashSet<StudentSubject>();
 
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy = "student", 								
 			   cascade = CascadeType.MERGE, 	
 			   orphanRemoval = true, 
 			   fetch = FetchType.LAZY)
 	private Set<Address> addresses = new HashSet<Address>();
 
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy = "student",
 			   cascade = CascadeType.MERGE,
 			   orphanRemoval = true,

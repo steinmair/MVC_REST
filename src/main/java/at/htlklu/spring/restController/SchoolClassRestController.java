@@ -19,13 +19,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("schoolClasses")
+@RequestMapping("schoolclasses")
 public class SchoolClassRestController extends RepresentationModel {
     private static final Logger logger = LogManager.getLogger(SchoolClassRestController.class);
     private static final String className = "SchoolClassRestController";
@@ -38,6 +39,24 @@ public class SchoolClassRestController extends RepresentationModel {
     EventRestController eventRestController;
 
     //http://localhost:8082/teachers/1
+    @GetMapping(value = "")
+    public ResponseEntity<?> getAll() {
+        ResponseEntity<?> result;
+        try {
+            logger.info(LogUtils.info(className, "getAllSchoolClasses", "Fetching all school classes"));
+            List<SchoolClass> allSchoolClasses = schoolClassRepository.findAll();
+
+            if (!allSchoolClasses.isEmpty()) {
+                result = new ResponseEntity<>(allSchoolClasses, HttpStatus.OK);
+            } else {
+                result = new ResponseEntity<>("No school classes found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            logger.error("Error fetching all school classes: " + e.getMessage());
+            result = new ResponseEntity<>("Error fetching all school classes", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return result;
+    }
     @GetMapping(value = "{schoolClassId}")
     public ResponseEntity<?> getByIdPV(@PathVariable Integer schoolClassId) {
         logger.info(LogUtils.info(className, "getByPV", String.format("(%d)", schoolClassId)));

@@ -52,14 +52,14 @@ public class Teacher extends RepresentationModel<Teacher> implements Serializabl
 	private String email;
 	private String phone;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy = "teacher", 								// JPA (mappedBy gibt das Feld in der Klasse "teacher" an)
 			   cascade = CascadeType.MERGE, 	
 			   orphanRemoval = true, 
 			   fetch = FetchType.LAZY)
 	private Set<SchoolClass> schoolClasses = new HashSet<SchoolClass>();
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy = "teacher", 								// JPA (mappedBy gibt das Feld in der Klasse "teacher" an)
 			   cascade = CascadeType.MERGE, 	
 			   orphanRemoval = true, 

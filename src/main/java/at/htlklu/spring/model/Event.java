@@ -1,6 +1,7 @@
 package at.htlklu.spring.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.RepresentationModel;
@@ -40,6 +41,7 @@ public class Event extends RepresentationModel<SchoolClass> implements Serializa
     private String destination;
     private String description;
 
+    //@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "SCHOOLCLASS_ID")
 	private SchoolClass schoolClass;

@@ -11,7 +11,7 @@
     	<div class="container">
 
 			<div th:replace="fragments/Department.html :: show(department=${department})"></div>
-			<div th:replace="fragments/Teacher.html :: show(teacher=${teacher})"></div>
+
 	    	<h2 th:text="#{schoolClass.caption.plural}"></h2>
 
 			<a class="btn btn-primary btn-sm mt-2 mb-2"
@@ -24,20 +24,22 @@
 	        <table class="table table-striped table-responsive-md">
 	            <tr>
 	                <th style="text-align: right" th:text="#{schoolClass.schoolClassId}"></th>
-	                <th style="text-align: right" th:text="#{schoolClass.level}"></th>
-	            	<th style="text-align: right" th:text="#{schoolClass.name}"></th>
-					<th th:text="#{schoolClass.department}"></th>
+	                <th style="text-align: right" th:text="#{schoolClass.name}"></th>
+	            	<th style="text-align: right" th:text="#{department.caption.singular}"></th>
 					<th th:text="#{schoolClass.teacher}"></th>
-					<th th:text="#{schoolClass.description}"></th>
+					<th th:text="#{student.caption.plural}"></th>
+					<th th:text="#{student.sex.male}"></th>
+					<th th:text="#{student.sex.female}"></th>
 					<th th:text="#{page.actions}"></th>
 	            </tr>
 	            <tr th:each="schoolClass:${schoolClasses}">
 		            <td style="text-align: right" th:text="${schoolClass.schoolClassId}"></td>
-		            <td style="text-align: right" th:text="${schoolClass.level}"></td>
 		            <td style="text-align: right" th:text="${schoolClass.name}"></td>
-					<td th:text="${schoolClass.department}"></td>
-					<td th:text="${schoolClass.teacher}"></td>
-					<td th:text="${schoolClass.description}"></td>
+		            <td style="text-align: right" th:text="${schoolClass.department.name}"></td>
+					<td th:text="${schoolClass.teacher.fullName()}"></td>
+					<td th:text="${schoolClass.countStudents()}"></td>
+					<td th:text="${schoolClass.countStudentsMale()}"></td>
+					<td th:text="${schoolClass.countStudentsFemale()}"></td>
 					<td>
 						<a class="btn btn-warning btn-sm mt-2"
 						   th:href="@{/mvc/schoolclasses/addEdit/{schoolClassId}(schoolClassId=${schoolClass.schoolClassId})}"
@@ -46,10 +48,6 @@
 						<a class="btn btn-danger btn-sm mt-2"
 						   th:href="@{/mvc/schoolclasses/delete/{schoolClassId}(schoolClassId=${schoolClass.schoolClassId})}"
 							th:text="Delete">
-						</a>
-						<a class="btn btn-primary btn-sm mt-2"
-						    th:href="@{/mvc/schoolclasses/{schoolClassId}/students(schoolClassId=${schoolClass.schoolClassId})}"
-							th:text="#{page.show(#{student.caption.plural})}">
 						</a>
 						<a class="btn btn-success btn-sm mt-2"
 						    th:href="@{/mvc/schoolclasses/{schoolClassId}/events(schoolClassId=${schoolClass.schoolClassId})}"

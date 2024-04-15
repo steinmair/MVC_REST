@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -37,6 +38,17 @@ public class DepartmentRestController extends RepresentationModel {
     DepartmentRepository departmentRepository;
 
     //http://localhost:8082/teachers/1
+    @GetMapping("")
+    public ResponseEntity<?> getAll() {
+        logger.info(LogUtils.info(className, "getAllDepartments", "Get all departments"));
+        List<Department> departments = departmentRepository.findAll();
+        if (!departments.isEmpty()) {
+
+            return new ResponseEntity<>(departments, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @GetMapping(value = "{departmentId}")
     public ResponseEntity<?> getByIdPV(@PathVariable Integer departmentId) {
         logger.info(LogUtils.info(className, "getByPV", String.format("(%d)", departmentId)));

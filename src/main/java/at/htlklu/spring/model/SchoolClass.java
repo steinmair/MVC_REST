@@ -40,13 +40,13 @@ public class SchoolClass extends RepresentationModel<SchoolClass> implements Ser
 	private Integer level;
 	private String description;
 
-	@JsonIgnore
+//@JsonIgnore
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DEPARTMENT_ID")
 	private Department department;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TEACHER_ID")
@@ -96,6 +96,12 @@ public class SchoolClass extends RepresentationModel<SchoolClass> implements Ser
 	}
 	//endregion
 
+	@JsonIgnore
+	@JsonGetter("countMale")
+	public long countStudents(){
+		return this.students.stream().count();
+
+	}
 
 	//region Methods
 	@Override
